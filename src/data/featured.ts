@@ -93,6 +93,26 @@ export const featuredProjects: FeaturedProject[] = [
     image: null, // TODO(Francis): screenshot SIN datos del cliente (usar datos de prueba)
   },
   {
+    slug: "fd-computacion",
+    title: "FD Computación",
+    tagline: "Catálogo web de mi propio negocio de venta de notebooks.",
+    description:
+      "Sitio de mi emprendimiento de compra y venta de notebooks usadas: catálogo de equipos, autenticación propia y datos en Supabase. Complementa las ventas por Facebook Marketplace y MercadoLibre.",
+    role: "Desarrollo y deploy individual; también soy el usuario y dueño del negocio.",
+    kind: "personal",
+    year: 2026,
+    status: "En producción",
+    stack: ["Next.js", "Supabase", "bcrypt", "JWT", "Vercel"],
+    highlights: [
+      "Autenticación propia con bcrypt + JWT",
+      "Datos en Supabase (SDK)",
+      "Usado en un negocio real",
+    ],
+    repo: "FDNotebooks",
+    links: { live: "https://fd-notebooks.vercel.app" },
+    image: null, // TODO(Francis): public/images/projects/fd-computacion.webp
+  },
+  {
     slug: "coopul",
     title: "Coopul",
     tagline: "App móvil multiplataforma de viajes compartidos.",
