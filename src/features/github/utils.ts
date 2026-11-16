@@ -21,30 +21,6 @@ export function normalizeRepo(raw: GitHubRepoRaw): Repo {
   };
 }
 
-type FilterOptions = {
-  /** Nombres de repo a excluir (ej. los destacados, que ya se muestran arriba). Case-insensitive. */
-  exclude?: readonly string[];
-};
-
-/** Saca forks, archivados y excluidos; ordena por actividad (último push primero). */
-export function selectOtherRepos(repos: readonly Repo[], { exclude = [] }: FilterOptions = {}) {
-  const excluded = new Set(exclude.map((name) => name.toLowerCase()));
-  return repos
-    .filter((r) => !r.isFork && !r.isArchived && !excluded.has(r.name.toLowerCase()))
-    .toSorted((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt));
-}
-
-/** Lenguajes únicos presentes en los repos, ordenados por cantidad de repos (para el filtro). */
-export function getLanguageOptions(repos: readonly Repo[]): string[] {
-  const counts = new Map<string, number>();
-  for (const { language } of repos) {
-    if (language) counts.set(language, (counts.get(language) ?? 0) + 1);
-  }
-  return [...counts.entries()]
-    .toSorted(([aName, a], [bName, b]) => b - a || aName.localeCompare(bName))
-    .map(([name]) => name);
-}
-
 /**
  * Convierte bytes por lenguaje en porcentajes. Agrupa lo menor a `minPercent` en "Otros"
  * para no mostrar 0.1% de Dockerfile.

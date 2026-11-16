@@ -1,9 +1,8 @@
 import "server-only";
 
-import { featuredProjects, hiddenRepos, type FeaturedProject } from "@/data/featured";
+import { featuredProjects, type FeaturedProject } from "@/data/featured";
 import { getRepoLanguages, getRepos } from "@/features/github/api";
-import type { LanguageShare, Repo } from "@/features/github/types";
-import { selectOtherRepos } from "@/features/github/utils";
+import type { LanguageShare } from "@/features/github/types";
 
 /** Datos de GitHub que enriquecen un destacado. Ausente si es privado o si la API falló. */
 export type ProjectGitHubData = {
@@ -18,8 +17,8 @@ export type Project = FeaturedProject & { github: ProjectGitHubData | null };
 
 /**
  * Destacados = datos manuales + datos de GitHub.
- * Las llamadas van en paralelo (Promise.all) y Next deduplica/cachea el fetch de la lista
- * de repos, así que getFeaturedProjects + getOtherRepos cuestan una sola request a /repos.
+ * Una request a /repos (cacheada y deduplicada por Next) + una por lenguajes de cada repo,
+ * en paralelo con Promise.all.
  */
 export async function getFeaturedProjects(): Promise<Project[]> {
   const repos = await getRepos();
@@ -47,11 +46,4 @@ export async function getFeaturedProjects(): Promise<Project[]> {
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   const projects = await getFeaturedProjects();
   return projects.find((p) => p.slug === slug) ?? null;
-}
-
-/** "Más en GitHub": todo lo público menos forks, archivados, destacados y ocultos. */
-export async function getOtherRepos(): Promise<Repo[]> {
-  const repos = await getRepos();
-  const featuredNames = featuredProjects.flatMap((p) => (p.repo ? [p.repo] : []));
-  return selectOtherRepos(repos, { exclude: [...featuredNames, ...hiddenRepos] });
 }

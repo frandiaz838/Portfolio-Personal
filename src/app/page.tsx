@@ -1,75 +1,75 @@
+import { Suspense } from "react";
+import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Glass } from "@/components/ui/glass";
+import { GitHubIcon } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { About } from "@/features/about/about";
+import { Colophon } from "@/features/colophon/colophon";
+import { ContactSection } from "@/features/contact/contact-section";
 import { Hero } from "@/features/hero/hero";
-import { getFeaturedProjects, getOtherRepos } from "@/features/projects/queries";
+import { FeaturedProjects, FeaturedProjectsSkeleton } from "@/features/projects/featured-projects";
+import { Skills } from "@/features/skills/skills";
+import { site } from "@/data/site";
 
-// Esqueleto de secciones. El contenido real (bento, filtros, Suspense) llega en el paso 5.
-// data-morph-stage marca en qué forma tiene que estar el objeto de fondo en cada sección.
-export default async function HomePage() {
-  const [featured, others] = await Promise.all([getFeaturedProjects(), getOtherRepos()]);
-
+/**
+ * Home. Server Component sin await propio: el hero se envía de inmediato y
+ * cada bloque que depende de GitHub se streamea en su propio <Suspense>.
+ *
+ * data-morph-stage = forma del objeto de fondo en ese bloque
+ * (0 núcleo · 1 nudo · 2 hélice · 3 retícula · 4 ola).
+ */
+export default function HomePage() {
   return (
     <main>
       <Hero />
 
-      <section data-morph-stage="1" className="py-32">
-        <Container>
-          <SectionHeading
-            id="proyectos"
-            index="01"
-            eyebrow="Proyectos"
-            title={
-              <>
-                Software real,
-                <br />
-                <span className="text-ember">en producción.</span>
-              </>
-            }
-            description="No son ejercicios: son sistemas que usan clientes y negocios todos los días."
-          />
-          <ul className="mt-16 grid gap-4 md:grid-cols-2">
-            {featured.map((p) => (
-              <li key={p.slug}>
-                <Glass className="h-full">
-                  <p className="font-mono text-xs text-ash uppercase">{p.status}</p>
-                  <h3 className="mt-3 font-condensed text-display-md uppercase">{p.title}</h3>
-                  <p className="mt-3 text-ash">{p.tagline}</p>
-                </Glass>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-10 font-mono text-xs text-ash">+ {others.length} repos más en GitHub</p>
-        </Container>
-      </section>
+      <div data-morph-stage="1">
+        <section aria-labelledby="proyectos" className="py-28 md:py-40">
+          <Container>
+            <SectionHeading
+              id="proyectos"
+              index="01"
+              eyebrow="Proyectos"
+              title={
+                <>
+                  Software real,
+                  <br />
+                  <span className="text-ember">en producción.</span>
+                </>
+              }
+              description="No son ejercicios de la facultad: son sistemas que usan clientes y negocios todos los días."
+            />
+            <div className="mt-14">
+              <Suspense fallback={<FeaturedProjectsSkeleton />}>
+                <FeaturedProjects />
+              </Suspense>
+            </div>
+            <a
+              href={site.github.url}
+              target="_blank"
+              rel="noreferrer"
+              className={buttonVariants({ variant: "glass", className: "mt-8" })}
+            >
+              <GitHubIcon />
+              Ver todo mi GitHub
+              <span className="sr-only">(se abre en otra pestaña)</span>
+            </a>
+          </Container>
+        </section>
+      </div>
 
-      <section data-morph-stage="2" className="flex min-h-svh items-center py-32">
-        <Container>
-          <SectionHeading
-            id="sobre-mi"
-            index="02"
-            eyebrow="Sobre mí"
-            title="Contenido en el paso 5"
-          />
-        </Container>
-      </section>
+      <div data-morph-stage="2">
+        <About />
+      </div>
 
-      <section data-morph-stage="3" className="flex min-h-svh items-center py-32">
-        <Container>
-          <SectionHeading id="stack" index="03" eyebrow="Stack" title="Contenido en el paso 5" />
-        </Container>
-      </section>
+      <div data-morph-stage="3">
+        <Skills />
+        <Colophon />
+      </div>
 
-      <section data-morph-stage="4" className="flex min-h-svh items-center py-32">
-        <Container>
-          <SectionHeading
-            id="contacto"
-            index="04"
-            eyebrow="Contacto"
-            title="Contenido en el paso 6"
-          />
-        </Container>
-      </section>
+      <div data-morph-stage="4">
+        <ContactSection />
+      </div>
     </main>
   );
 }

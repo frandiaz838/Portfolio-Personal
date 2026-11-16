@@ -18,6 +18,8 @@ export const site = {
   cvPath: "/cv/francisco-diaz-cv.pdf",
   /** Se muestra en Sobre mí y Contacto (no en el hero). */
   availability: "Disponibilidad por la mañana · estudio por la tarde",
+  // TODO(Francis): confirmar que este es el repo donde vive el sitio
+  sourceRepo: "https://github.com/frandiaz838/Portfolio-Personal",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 } as const;
 

@@ -12,6 +12,14 @@
 
 export type ProjectKind = "personal" | "colaborativo" | "universitario";
 
+/**
+ * Tamaño en el bento de la home:
+ *  - "feature": la card grande (con visual), ideal para el proyecto principal
+ *  - "tall": alta y angosta
+ *  - "wide": mitad de ancho, sin visual
+ */
+export type ProjectLayout = "feature" | "tall" | "wide";
+
 export type FeaturedProject = {
   slug: string;
   title: string;
@@ -32,6 +40,9 @@ export type FeaturedProject = {
   links: {
     live?: string;
   };
+  layout: ProjectLayout;
+  /** Frase destacada para la card (opcional). */
+  callout?: string;
   /** Ruta en /public. null mientras no haya screenshot (la card usa un placeholder). */
   image: { src: string; alt: string } | null;
 };
@@ -39,6 +50,7 @@ export type FeaturedProject = {
 export const featuredProjects: FeaturedProject[] = [
   {
     slug: "pointix",
+    layout: "feature",
     title: "Pointix",
     tagline: "SaaS multi-tenant de gestión de turnos y reservas.",
     description:
@@ -72,6 +84,8 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "vila-panaderia",
+    layout: "tall",
+    callout: "Lo usan todos los días el dueño del comercio y sus empleados.",
     title: "Vila Panadería",
     tagline: "Sistema de gestión vendido y en uso diario en una panadería real.",
     description:
@@ -94,6 +108,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "fd-computacion",
+    layout: "wide",
     title: "FD Computación",
     tagline: "Catálogo web de mi propio negocio de venta de notebooks.",
     description:
@@ -114,6 +129,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "coopul",
+    layout: "wide",
     title: "Coopul",
     tagline: "App móvil multiplataforma de viajes compartidos.",
     description:
@@ -133,12 +149,4 @@ export const featuredProjects: FeaturedProject[] = [
     links: {},
     image: null, // TODO(Francis): public/images/projects/coopul.webp
   },
-];
-
-/**
- * Repos que nunca aparecen en "Más en GitHub" (además de forks, archivados y destacados).
- */
-export const hiddenRepos: readonly string[] = [
-  "frandiaz838", // README del perfil
-  "Portfolio-Personal", // este mismo sitio (se muestra en "Cómo está hecho")
 ];

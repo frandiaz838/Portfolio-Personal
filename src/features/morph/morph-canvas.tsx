@@ -10,8 +10,8 @@ import { morphFromScroll, type StageBox } from "./stage-progress";
 const DESKTOP_STAGES: StageParams[] = [
   { x: 0.5, y: 0.1, scale: 0.92, opacity: 1 },
   { x: 0.5, y: 0.05, scale: 0.85, opacity: 0.75 },
-  { x: 0.45, y: 0.0, scale: 0.95, opacity: 0.85 },
-  { x: 0.48, y: 0.0, scale: 0.9, opacity: 0.75 },
+  { x: 0.55, y: 0.0, scale: 0.9, opacity: 0.6 },
+  { x: 0.5, y: 0.0, scale: 0.9, opacity: 0.6 },
   { x: 0.45, y: -0.05, scale: 0.8, opacity: 0.9 },
 ];
 
@@ -19,8 +19,8 @@ const DESKTOP_STAGES: StageParams[] = [
 const MOBILE_STAGES: StageParams[] = [
   { x: 0, y: 0.55, scale: 0.5, opacity: 0.85 },
   { x: 0, y: 0.1, scale: 0.8, opacity: 0.35 },
-  { x: 0, y: 0.1, scale: 0.8, opacity: 0.4 },
-  { x: 0, y: 0.1, scale: 0.75, opacity: 0.35 },
+  { x: 0, y: 0.1, scale: 0.8, opacity: 0.25 },
+  { x: 0, y: 0.1, scale: 0.75, opacity: 0.25 },
   { x: 0, y: 0.15, scale: 0.85, opacity: 0.45 },
 ];
 
