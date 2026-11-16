@@ -135,3 +135,32 @@ export function randoms(count: number, seed = 1337): Float32Array {
   }
   return out;
 }
+
+/**
+ * Permutación aleatoria (Fisher-Yates, seed fija) de los índices de partícula.
+ * Se aplica igual a todas las formas: la partícula i sigue siendo "la misma" en
+ * cada forma (transiciones coherentes), pero cualquier prefijo [0, n) es una
+ * muestra uniforme. Eso permite bajar la cantidad dibujada sin cortar la forma.
+ */
+export function permutation(count: number, seed = 7): Uint32Array {
+  const rand = randoms(Math.ceil(count / 4), seed); // count valores en [0, 1)
+  const order = new Uint32Array(count);
+  for (let i = 0; i < count; i++) order[i] = i;
+  for (let i = count - 1; i > 0; i--) {
+    const j = Math.floor(rand[i]! * (i + 1));
+    const tmp = order[i]!;
+    order[i] = order[j]!;
+    order[j] = tmp;
+  }
+  return order;
+}
+
+/** Reordena un array de vectores (de `size` componentes) según `order`. */
+export function reorder(data: Float32Array, order: Uint32Array, size: number): Float32Array {
+  const out = new Float32Array(data.length);
+  for (let i = 0; i < order.length; i++) {
+    const from = order[i]! * size;
+    for (let k = 0; k < size; k++) out[i * size + k] = data[from + k]!;
+  }
+  return out;
+}

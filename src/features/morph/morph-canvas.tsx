@@ -96,7 +96,7 @@ export function MorphCanvas() {
         const cores = navigator.hardwareConcurrency ?? 4;
         renderer = new MorphRenderer(canvas, {
           count: isMobile ? 5000 : cores <= 4 ? 9000 : 14000,
-          maxDpr: isMobile ? 1.5 : 1.75,
+          maxDpr: 1.5,
           animate: !reducedMotion,
           stages: isMobile ? MOBILE_STAGES : DESKTOP_STAGES,
         });

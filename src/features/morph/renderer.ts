@@ -7,7 +7,7 @@
  *
  * Este módulo se importa de forma dinámica (code splitting) desde morph-canvas.tsx.
  */
-import { SHAPES, randoms } from "./shapes";
+import { SHAPES, permutation, randoms, reorder } from "./shapes";
 
 export type StageParams = {
   /** Desplazamiento en pantalla (NDC: -1..1) */
@@ -86,7 +86,7 @@ void main() {
   gl_Position.xy += uOffset * gl_Position.w;
 
   float depth = -view.z;
-  gl_PointSize = uSize * uPixelRatio * (0.45 + aRand.w * 0.9) / depth * (1. + transit * 0.6);
+  gl_PointSize = uSize * uPixelRatio * (0.45 + aRand.w * 0.9) / depth * (1. + transit * 0.2);
 
   float heat = aRand.x;
   vec3 color = mix(DEEP, EMBER, smoothstep(0.0, 0.7, heat));
@@ -156,6 +156,14 @@ export class MorphRenderer {
   private targetPointer = { x: 0, y: 0 };
   private params: StageParams;
 
+  /**
+   * Calidad adaptativa: cuántas partículas se dibujan este frame.
+   * Si la máquina no llega a ~45 fps, baja; si sobra margen, sube de a poco.
+   */
+  private drawCount = 0;
+  private frameTimeAvg = 1 / 60;
+  private lastQualityCheck = 0;
+
   constructor(
     private canvas: HTMLCanvasElement,
     private options: RendererOptions,
@@ -183,8 +191,10 @@ export class MorphRenderer {
     gl.bindVertexArray(this.vao);
 
     const { count } = options;
-    SHAPES.forEach((shape, i) => this.attribute(`aShape${i}`, shape(count), 3));
+    const order = permutation(count);
+    SHAPES.forEach((shape, i) => this.attribute(`aShape${i}`, reorder(shape(count), order, 3), 3));
     this.attribute("aRand", randoms(count), 4);
+    this.drawCount = count;
 
     for (const name of [
       "uMorph",
@@ -278,8 +288,8 @@ export class MorphRenderer {
       this.morph = damp(this.morph, this.targetMorph, 3.2, dt);
       this.pointer.x = damp(this.pointer.x, this.targetPointer.x, 2.5, dt);
       this.pointer.y = damp(this.pointer.y, this.targetPointer.y, 2.5, dt);
-      const target = this.stageAt(this.morph);
-      this.params = target;
+      this.params = this.stageAt(this.morph);
+      this.adaptQuality(dt, now);
       this.draw((now - this.startTime) / 1000);
       this.raf = requestAnimationFrame(loop);
     };
@@ -289,6 +299,21 @@ export class MorphRenderer {
 
   stop() {
     cancelAnimationFrame(this.raf);
+  }
+
+  private adaptQuality(dt: number, now: number) {
+    // Promedio móvil exponencial: un frame lento aislado no dispara nada
+    this.frameTimeAvg = lerp(this.frameTimeAvg, dt, 0.05);
+    if (now - this.lastQualityCheck < 500) return;
+    this.lastQualityCheck = now;
+
+    const { count } = this.options;
+    const min = Math.floor(count * 0.3);
+    if (this.frameTimeAvg > 1 / 45) {
+      this.drawCount = Math.max(min, Math.floor(this.drawCount * 0.8));
+    } else if (this.frameTimeAvg < 1 / 58 && this.drawCount < count) {
+      this.drawCount = Math.min(count, Math.floor(this.drawCount * 1.05) + 50);
+    }
   }
 
   private draw(time: number) {
@@ -301,7 +326,7 @@ export class MorphRenderer {
     gl.uniform2f(u.uOffset!, params.x, params.y);
     gl.uniform1f(u.uScale!, params.scale);
     gl.uniform1f(u.uOpacity!, params.opacity);
-    gl.drawArrays(gl.POINTS, 0, this.options.count);
+    gl.drawArrays(gl.POINTS, 0, this.drawCount);
   }
 
   dispose() {
