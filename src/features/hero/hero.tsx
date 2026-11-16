@@ -18,7 +18,7 @@ export function Hero() {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs tracking-wider text-ash uppercase">
           <span className="inline-flex items-center gap-2 text-bone">
             <span className="size-2 animate-pulse-dot rounded-full bg-ember" aria-hidden />
-            Disponible por la mañana
+            Abierto a oportunidades
           </span>
           <span aria-hidden className="hidden h-px w-8 bg-ink-line sm:block" />
           <span>{site.location}</span>
