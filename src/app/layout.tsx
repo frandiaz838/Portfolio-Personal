@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Background } from "@/components/layout/background";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { MorphCanvas } from "@/features/morph/morph-canvas";
 import { site } from "@/data/site";
 import { fontVariables } from "@/lib/fonts";
 import "./globals.css";
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           Saltar al contenido
         </a>
         <Background />
+        <MorphCanvas />
         <Header />
         <div id="contenido">{children}</div>
         <Footer />
