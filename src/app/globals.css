@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Los tokens de diseño (colores, fuentes, sombras) se definen en el paso 4,
+   una vez elegida la dirección visual. Por ahora, una base oscura neutra. */
+@theme {
+  --color-bg: #0c0e14;
+  --color-fg: #e8eaf0;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
