@@ -339,6 +339,8 @@ export class MorphRenderer {
     this.buffers.forEach((b) => gl.deleteBuffer(b));
     gl.deleteVertexArray(this.vao);
     gl.deleteProgram(this.program);
-    gl.getExtension("WEBGL_lose_context")?.loseContext();
+    // Sin loseContext(): el <canvas> se reutiliza cuando el efecto se vuelve a correr
+    // (cruzar el breakpoint mobile, reduced motion, Fast Refresh). Un contexto perdido
+    // no se recupera y el renderer siguiente caía al fallback estático.
   }
 }
