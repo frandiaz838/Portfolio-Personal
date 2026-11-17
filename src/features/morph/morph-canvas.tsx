@@ -8,7 +8,8 @@ import { morphFromScroll, type StageBox } from "./stage-progress";
 
 /** Posición/tamaño/opacidad del objeto en cada sección (hero, proyectos, sobre mí, stack, contacto) */
 const DESKTOP_STAGES: StageParams[] = [
-  { x: 0.5, y: 0.1, scale: 0.92, opacity: 1 },
+  // Hero: centrada en vertical entre el header y la fila de botones
+  { x: 0.5, y: 0.06, scale: 0.75, opacity: 1 },
   { x: 0.5, y: 0.05, scale: 0.85, opacity: 0.75 },
   { x: 0.55, y: 0.0, scale: 0.9, opacity: 0.6 },
   { x: 0.5, y: 0.0, scale: 0.9, opacity: 0.6 },

@@ -18,7 +18,11 @@ export const facts: Fact[] = [
   },
   { value: "1", label: "Sistema vendido", detail: "En producción, uso diario" },
   { value: "+200", label: "Notebooks vendidas", detail: "FD Computación, desde 2022" },
-  { value: "Mañanas", label: "Disponibilidad", detail: "Full time en vacaciones" },
+  {
+    value: "Full time",
+    label: "Disponibilidad",
+    detail: "Por la mañana cuando retomo la facultad",
+  },
 ];
 
 export const languages = [
