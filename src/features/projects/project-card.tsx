@@ -58,6 +58,11 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="mt-3 max-w-prose text-pretty text-bone/85">{project.tagline}</p>
       </div>
 
+      {/* Card ancha con logo: el panel crece para emparejar el alto con su vecina */}
+      {layout === "wide" && !project.image && project.logo && (
+        <ProjectVisual project={project} className="min-h-40 flex-1" />
+      )}
+
       {project.gallery && project.gallery.length > 0 && (
         <ProjectGallery title={project.title} shots={project.gallery} />
       )}

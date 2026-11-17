@@ -52,6 +52,8 @@ export type FeaturedProject = {
   integrations?: string;
   /** Ruta en /public. null mientras no haya screenshot (la card usa un placeholder). */
   image: { src: string; alt: string } | null;
+  /** Logo del proyecto (opcional). Sin screenshot, la card lo muestra en vez del placeholder. */
+  logo?: { src: string; alt: string; width: number; height: number };
   /**
    * Capturas extra para la card (opcional). Si un archivo todavía no existe,
    * esa captura no se muestra; si no existe ninguna, la galería no aparece.
@@ -148,7 +150,14 @@ export const featuredProjects: FeaturedProject[] = [
     ],
     repo: "FDNotebooks",
     links: { live: "https://fd-notebooks.vercel.app" },
-    image: null, // TODO(Francis): public/images/projects/fd-computacion.webp
+    // Es un catálogo web: el logo del negocio dice más que una captura.
+    image: null,
+    logo: {
+      src: "/images/projects/fd-computacion-logo.svg",
+      alt: "Logo de FD Computación",
+      width: 1212,
+      height: 702,
+    },
   },
   {
     slug: "coopul",
