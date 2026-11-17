@@ -42,6 +42,7 @@ export const skillGroups: SkillGroup[] = [
     title: "Inteligencia artificial",
     size: "lg",
     items: ["Gemini API", "AssemblyAI", "Claude Code", "Cursor"],
+    note: "Integración de AssemblyAI (diarización de audio) y Gemini en un proyecto final de Programación Orientada a Objetos, en equipo.",
   },
   {
     title: "Redes e infraestructura",
@@ -54,9 +55,10 @@ export const skillGroups: SkillGroup[] = [
 /** Normaliza variantes ("PostgreSQL (Supabase)", ".NET 10") para comparar. */
 const normalize = (s: string) => s.toLowerCase().replace(/\s+/g, "");
 
-const IN_PRODUCTION = new Set(["En producción", "Etapa comercial"]);
+/** Solo cuenta lo que está en uso con clientes reales (un SaaS desplegado sin clientes no suma). */
+const IN_PRODUCTION = new Set(["En producción"]);
 
-/** Tecnologías usadas en proyectos que hoy están en producción. Derivado de featured.ts. */
+/** Tecnologías usadas en proyectos que hoy están en producción con clientes. Derivado de featured.ts. */
 export const productionTech: ReadonlySet<string> = new Set(
   featuredProjects
     .filter((p) => IN_PRODUCTION.has(p.status))

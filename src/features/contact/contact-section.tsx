@@ -18,7 +18,7 @@ export function ContactSection() {
               Hablemos<span className="text-ember">.</span>
             </>
           }
-          description={`Busco mi primer trabajo formal como desarrollador. ${site.availability}.`}
+          description={`${site.lookingFor} ${site.availability}`}
         />
 
         <a

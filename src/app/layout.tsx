@@ -8,14 +8,41 @@ import { site } from "@/data/site";
 import { fontVariables } from "@/lib/fonts";
 import "./globals.css";
 
+const defaultTitle = `${site.name} — ${site.role}`;
+
+/**
+ * og.png: captura del hero a 1200×630 (lo que muestran LinkedIn y WhatsApp al pegar el link).
+ * metadataBase la convierte en URL absoluta: en producción hay que definir NEXT_PUBLIC_SITE_URL.
+ */
+const ogImage = {
+  url: "/og.png",
+  width: 1200,
+  height: 630,
+  alt: `${site.name} — ${site.role}`,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role}`,
+    default: defaultTitle,
     template: `%s · ${site.name}`,
   },
-  description:
-    "Portfolio de Francisco Díaz: proyectos full stack en producción con Next.js, React, Go y TypeScript.",
+  description: site.description,
+  openGraph: {
+    type: "website",
+    locale: "es_AR",
+    url: "/",
+    siteName: site.name,
+    title: defaultTitle,
+    description: site.description,
+    images: [ogImage],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: site.description,
+    images: [ogImage],
+  },
 };
 
 export const viewport: Viewport = {

@@ -33,9 +33,10 @@ export function Hero() {
           <div className="max-w-xl">
             <p className="font-mono text-sm text-ash">{site.role}</p>
             <p className="mt-3 text-lg text-pretty text-bone/90 md:text-xl">
-              Construyo software que ya está en producción: un SaaS propio, un sistema vendido a un
+              Construyo software desplegado y funcionando: un SaaS propio, un sistema vendido a un
               cliente real y una app móvil hecha en equipo.
             </p>
+            <p className="mt-3 text-pretty text-ash">{site.lookingFor}</p>
           </div>
 
           <div className="flex flex-wrap gap-2">

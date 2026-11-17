@@ -31,7 +31,10 @@ export type FeaturedProject = {
   role: string;
   kind: ProjectKind;
   year: number;
-  /** Etiqueta de estado visible ("En producción", "Etapa comercial", etc.) */
+  /**
+   * Etiqueta de estado visible. "En producción" = en uso con clientes reales:
+   * solo ese valor marca su stack como "usado en producción" (ver skills.ts).
+   */
   status: string;
   stack: string[];
   highlights: string[];
@@ -43,8 +46,15 @@ export type FeaturedProject = {
   layout: ProjectLayout;
   /** Frase destacada para la card (opcional). */
   callout?: string;
+  /** Línea "Integraciones · …" en la card (opcional). */
+  integrations?: string;
   /** Ruta en /public. null mientras no haya screenshot (la card usa un placeholder). */
   image: { src: string; alt: string } | null;
+  /**
+   * Capturas extra para la card (opcional). Si un archivo todavía no existe,
+   * esa captura no se muestra; si no existe ninguna, la galería no aparece.
+   */
+  gallery?: { src: string; alt: string }[];
 };
 
 export const featuredProjects: FeaturedProject[] = [
@@ -54,11 +64,13 @@ export const featuredProjects: FeaturedProject[] = [
     title: "Pointix",
     tagline: "SaaS multi-tenant de gestión de turnos y reservas.",
     description:
-      "Plataforma SaaS multi-tenant para la gestión de turnos y reservas, con arquitectura full stack completa (frontend, backend y base de datos) y un sistema de diseño propio. Funcional, con dominio propio y en etapa comercial.",
+      "Plataforma SaaS multi-tenant para la gestión de turnos y reservas, con arquitectura full stack completa (frontend, backend y base de datos) y un sistema de diseño propio. Funcional y con dominio propio: desplegado, con pagos de MercadoPago probados; aún sin clientes.",
     role: "Diseño y desarrollo individual, de punta a punta.",
+    integrations:
+      "Pagos con MercadoPago (cobro de señas y configuración de credenciales por negocio), emails transaccionales con Resend y autenticación con NextAuth.",
     kind: "personal",
     year: 2026,
-    status: "Etapa comercial",
+    status: "Desplegado · Pagos probados",
     stack: [
       "Next.js",
       "TypeScript",
@@ -117,7 +129,7 @@ export const featuredProjects: FeaturedProject[] = [
     kind: "personal",
     year: 2026,
     status: "En producción",
-    stack: ["Next.js", "Supabase", "bcrypt", "JWT", "Vercel"],
+    stack: ["Next.js", "TypeScript", "Supabase", "bcrypt", "JWT", "Vercel"],
     highlights: [
       "Autenticación propia con bcrypt + JWT",
       "Datos en Supabase (SDK)",
@@ -148,5 +160,21 @@ export const featuredProjects: FeaturedProject[] = [
     repo: "PoolCompartido",
     links: {},
     image: null, // TODO(Francis): public/images/projects/coopul.webp
+    // TODO(Francis): guardar las capturas con estos nombres en public/projects/coopul/
+    // y ajustar cada alt a lo que muestra la captura real.
+    gallery: [
+      {
+        src: "/projects/coopul/viajes.png",
+        alt: "Coopul: listado de viajes compartidos publicados, con origen, destino y horario",
+      },
+      {
+        src: "/projects/coopul/chat.png",
+        alt: "Coopul: chat grupal entre el conductor y los pasajeros de un viaje",
+      },
+      {
+        src: "/projects/coopul/perfil.png",
+        alt: "Coopul: perfil de usuario con sus calificaciones",
+      },
+    ],
   },
 ];

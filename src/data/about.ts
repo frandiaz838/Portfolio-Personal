@@ -2,7 +2,8 @@
  * Contenido de "Sobre mí". Todo sale del CV: si algo cambia, se edita acá.
  */
 export const aboutParagraphs = [
-  "Estudio Ingeniería Informática en la Universidad Blas Pascal y estoy en 3er año. En paralelo construyo software que se usa de verdad: junto a otro desarrollador vendimos un sistema de gestión a una panadería que lo usa todos los días, y desarrollé solo Pointix, un SaaS de turnos que hoy está en etapa comercial.",
+  "Estudio Ingeniería Informática en la Universidad Blas Pascal y estoy en 3er año. En paralelo construyo software que se usa de verdad: junto a otro desarrollador vendimos un sistema de gestión a una panadería que lo usa todos los días, y desarrollé solo Pointix, un SaaS de turnos ya desplegado, con cobro de señas por MercadoPago probado, que todavía busca sus primeros clientes.",
+  "Trabajo con asistencia de IA (Claude Code y Cursor): yo defino la arquitectura y los requisitos, reviso lo que se genera, lo pruebo y me hago cargo del resultado. Mis proyectos los construí así, y por eso aprendí a detectar y corregir los errores que la IA puede introducir.",
   "Desde 2022 tengo mi propio emprendimiento de compra, reparación y venta de notebooks usadas. Diagnosticar cada equipo, responder por lo que entrego y tratar directo con clientes me dio una forma de trabajar que llevo al código.",
   "Busco mi primer trabajo formal como desarrollador junior / full stack.",
 ] as const;
@@ -17,7 +18,7 @@ export const facts: Fact[] = [
   },
   { value: "1", label: "Sistema vendido", detail: "En producción, uso diario" },
   { value: "+200", label: "Notebooks vendidas", detail: "FD Computación, desde 2022" },
-  { value: "Mañanas", label: "Disponibilidad", detail: "Estudio por la tarde" },
+  { value: "Mañanas", label: "Disponibilidad", detail: "Full time en vacaciones" },
 ];
 
 export const languages = [

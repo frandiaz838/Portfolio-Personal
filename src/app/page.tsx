@@ -34,10 +34,10 @@ export default function HomePage() {
                 <>
                   Software real,
                   <br />
-                  <span className="text-ember">en producción.</span>
+                  <span className="text-ember">funcionando.</span>
                 </>
               }
-              description="No son ejercicios de la facultad: son sistemas que usan clientes y negocios todos los días."
+              description="Sistemas reales: dos en uso con clientes, un SaaS propio desplegado y un proyecto final hecho en equipo."
             />
             <div className="mt-14">
               <Suspense fallback={<FeaturedProjectsSkeleton />}>

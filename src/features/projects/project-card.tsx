@@ -5,6 +5,7 @@ import type { ProjectKind, ProjectLayout } from "@/data/featured";
 import { LanguageBar } from "@/features/github/language-bar";
 import { formatRelativeDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
+import { ProjectGallery } from "./project-gallery";
 import { ProjectVisual } from "./project-visual";
 import type { Project } from "./queries";
 
@@ -57,6 +58,10 @@ export function ProjectCard({ project }: { project: Project }) {
         <p className="mt-3 max-w-prose text-pretty text-bone/85">{project.tagline}</p>
       </div>
 
+      {project.gallery && project.gallery.length > 0 && (
+        <ProjectGallery title={project.title} shots={project.gallery} />
+      )}
+
       {layout === "tall" && (
         <ProjectVisual project={project} className="min-h-40 flex-1 max-lg:hidden" />
       )}
@@ -71,6 +76,15 @@ export function ProjectCard({ project }: { project: Project }) {
         <span className="font-mono text-[11px] tracking-wider text-ash uppercase">Rol · </span>
         {project.role}
       </p>
+
+      {project.integrations && (
+        <p className="text-sm text-ash">
+          <span className="font-mono text-[11px] tracking-wider text-ash uppercase">
+            Integraciones ·{" "}
+          </span>
+          {project.integrations}
+        </p>
+      )}
 
       <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
         {project.stack.slice(0, MAX_CHIPS).map((tech) => (

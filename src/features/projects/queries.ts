@@ -1,5 +1,7 @@
 import "server-only";
 
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { featuredProjects, type FeaturedProject } from "@/data/featured";
 import { getRepoLanguages, getRepos } from "@/features/github/api";
 import type { LanguageShare } from "@/features/github/types";
@@ -25,7 +27,7 @@ export async function getFeaturedProjects(): Promise<Project[]> {
   const byName = new Map(repos.map((r) => [r.name.toLowerCase(), r]));
 
   return Promise.all(
-    featuredProjects.map(async (project): Promise<Project> => {
+    featuredProjects.map(withExistingGallery).map(async (project): Promise<Project> => {
       const repo = project.repo ? byName.get(project.repo.toLowerCase()) : undefined;
       if (!repo) return { ...project, github: null }; // privado o GitHub caído → solo manual
 
@@ -41,6 +43,20 @@ export async function getFeaturedProjects(): Promise<Project[]> {
       };
     }),
   );
+}
+
+/**
+ * Deja en la galería solo las capturas que ya están en /public: si todavía no subiste
+ * los archivos, la card se ve como antes (sin cajas vacías ni 404).
+ * En Vercel, /public no viaja con la función de ISR por defecto: por eso
+ * next.config.ts la suma con outputFileTracingIncludes.
+ */
+function withExistingGallery(project: FeaturedProject): FeaturedProject {
+  if (!project.gallery) return project;
+  const gallery = project.gallery.filter((shot) =>
+    existsSync(path.join(process.cwd(), "public", shot.src)),
+  );
+  return { ...project, gallery };
 }
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
