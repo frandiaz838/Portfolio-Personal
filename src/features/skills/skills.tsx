@@ -30,7 +30,7 @@ export function Skills() {
               <Chip tone="ember" className="align-middle">
                 ● en producción
               </Chip>{" "}
-              lo usé en proyectos que hoy están funcionando con usuarios reales.
+              lo usé en proyectos que hoy están desplegados en producción.
             </>
           }
         />

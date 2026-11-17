@@ -31,11 +31,13 @@ export type FeaturedProject = {
   role: string;
   kind: ProjectKind;
   year: number;
-  /**
-   * Etiqueta de estado visible. "En producción" = en uso con clientes reales:
-   * solo ese valor marca su stack como "usado en producción" (ver skills.ts).
-   */
+  /** Etiqueta de estado visible ("En producción", "Proyecto final", etc.) */
   status: string;
+  /**
+   * Desplegado y listo para uso real (tenga o no clientes todavía).
+   * Marca su stack como "en producción" en la sección Stack (ver skills.ts).
+   */
+  inProduction: boolean;
   stack: string[];
   highlights: string[];
   /** Nombre del repo público en GitHub, o null si es privado. */
@@ -71,6 +73,7 @@ export const featuredProjects: FeaturedProject[] = [
     kind: "personal",
     year: 2026,
     status: "Desplegado · Pagos probados",
+    inProduction: true,
     stack: [
       "Next.js",
       "TypeScript",
@@ -106,6 +109,7 @@ export const featuredProjects: FeaturedProject[] = [
     kind: "colaborativo",
     year: 2026,
     status: "En producción",
+    inProduction: true,
     stack: ["Go", "React", "MySQL", "PostgreSQL", "JWT", "Render", "Vercel"],
     highlights: [
       "Cliente real, en uso diario",
@@ -129,6 +133,7 @@ export const featuredProjects: FeaturedProject[] = [
     kind: "personal",
     year: 2026,
     status: "En producción",
+    inProduction: true,
     stack: ["Next.js", "TypeScript", "Supabase", "bcrypt", "JWT", "Vercel"],
     highlights: [
       "Autenticación propia con bcrypt + JWT",
@@ -150,6 +155,7 @@ export const featuredProjects: FeaturedProject[] = [
     kind: "universitario",
     year: 2026,
     status: "Proyecto final",
+    inProduction: false,
     stack: ["C#", ".NET 10", ".NET MAUI", "Firebase"],
     highlights: [
       "Trabajo en equipo con Scrum",
