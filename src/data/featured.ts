@@ -95,7 +95,12 @@ export const featuredProjects: FeaturedProject[] = [
     ],
     repo: "Pointix---Turnero",
     links: { live: "https://pointix.com.ar" },
-    image: null, // TODO(Francis): public/images/projects/pointix.webp
+    image: {
+      src: "/images/projects/pointix.webp",
+      alt: "Panel de Pointix: reservas, ingresos y ocupación del día, y la agenda de turnos del complejo",
+    },
+    // Para la vista de detalle (paso 9): /projects/pointix/grilla.webp (grilla pública de
+    // turnos) y /projects/pointix/pago.webp (detalle del pago de la seña con MercadoPago).
   },
   {
     slug: "vila-panaderia",
