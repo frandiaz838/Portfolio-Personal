@@ -14,7 +14,6 @@ export const site = {
     url: "https://github.com/frandiaz838",
   },
   linkedin: "https://www.linkedin.com/in/francisco-diaz-691b94211",
-  // TODO(Francis): copiar el PDF del CV a public/cv/francisco-diaz-cv.pdf
   cvPath: "/cv/francisco-diaz-cv.pdf",
   /** Se muestra en Sobre mí y Contacto (no en el hero). */
   availability: "Disponibilidad por la mañana · estudio por la tarde",
