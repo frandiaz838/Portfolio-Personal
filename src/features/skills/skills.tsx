@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils";
 const SIZE: Record<SkillGroup["size"], string> = {
   lg: "md:col-span-3",
   md: "md:col-span-2",
-  full: "md:col-span-6 md:grid md:grid-cols-[auto_1fr_auto] md:items-center md:gap-x-10",
 };
 
 export function Skills() {
@@ -40,7 +39,7 @@ export function Skills() {
           {skillGroups.map((group) => (
             <div key={group.title} className={cn("glass rounded-3xl p-6 sm:p-7", SIZE[group.size])}>
               <h3 className="font-condensed text-3xl text-bone uppercase">{group.title}</h3>
-              <ul className={cn("mt-5 flex flex-wrap gap-2", group.size === "full" && "md:mt-0")}>
+              <ul className="mt-5 flex flex-wrap gap-2">
                 {group.items.map((item) => {
                   const prod = isUsedInProduction(item);
                   return (
@@ -54,16 +53,7 @@ export function Skills() {
                   );
                 })}
               </ul>
-              {group.note && (
-                <p
-                  className={cn(
-                    "mt-4 text-sm text-ash",
-                    group.size === "full" && "md:mt-0 md:max-w-56",
-                  )}
-                >
-                  {group.note}
-                </p>
-              )}
+              {group.note && <p className="mt-4 text-sm text-ash">{group.note}</p>}
             </div>
           ))}
         </div>

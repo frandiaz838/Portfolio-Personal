@@ -7,7 +7,7 @@ import { featuredProjects } from "./featured";
 export type SkillGroup = {
   title: string;
   /** Tamaño en el bento */
-  size: "lg" | "md" | "full";
+  size: "lg" | "md";
   items: string[];
   note?: string;
 };
@@ -36,11 +36,16 @@ export const skillGroups: SkillGroup[] = [
   {
     title: "Herramientas",
     size: "md",
-    items: ["Git", "GitHub", "Vercel", "Render", "VS Code", "Claude Code", "Cursor"],
+    items: ["Git", "GitHub", "Vercel", "Render", "VS Code", "Qt Creator"],
+  },
+  {
+    title: "Inteligencia artificial",
+    size: "lg",
+    items: ["Gemini API", "AssemblyAI", "Claude Code", "Cursor"],
   },
   {
     title: "Redes e infraestructura",
-    size: "full",
+    size: "lg",
     items: ["Cisco Packet Tracer", "VLAN", "STP", "ACL", "WLC", "Hardware"],
     note: "Diagnóstico y reparación de hardware (FD Computación).",
   },
