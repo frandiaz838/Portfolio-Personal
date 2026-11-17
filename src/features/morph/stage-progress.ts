@@ -17,6 +17,7 @@ export function morphFromScroll(stages: readonly StageBox[], viewportCenter: num
     const { top, height } = stages[i]!;
     if (viewportCenter < top + height || i === stages.length - 1) {
       if (i === stages.length - 1) return i; // última sección: forma final
+      if (height <= 0) return i; // sección sin alto (oculta o sin layout): evita 0/0 = NaN
       const local = Math.max(0, (viewportCenter - top) / height);
       const t = Math.min(1, Math.max(0, (local - 0.5) / 0.5));
       return i + smoothstep(t);

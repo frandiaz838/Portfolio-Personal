@@ -233,7 +233,7 @@ export class MorphRenderer {
   /** Parámetros interpolados para un valor de morph continuo (ej. 1.4) */
   private stageAt(morph: number): StageParams {
     const { stages } = this.options;
-    const i = Math.min(Math.floor(morph), stages.length - 1);
+    const i = Math.max(0, Math.min(Math.floor(morph), stages.length - 1));
     const a = stages[i]!;
     const b = stages[Math.min(i + 1, stages.length - 1)]!;
     const t = morph - i;
@@ -260,6 +260,8 @@ export class MorphRenderer {
   }
 
   setTarget(morph: number) {
+    // Un NaN acá se propaga a this.morph y rompe stageAt en cada frame: se descarta.
+    if (!Number.isFinite(morph)) return;
     this.targetMorph = Math.max(0, Math.min(SHAPES.length - 1, morph));
     if (!this.options.animate) {
       // Sin animación: salto directo a la forma de la sección, sin transición
@@ -283,7 +285,9 @@ export class MorphRenderer {
       return;
     }
     const loop = (now: number) => {
-      const dt = Math.min((now - this.lastFrame) / 1000, 0.1);
+      // El timestamp de rAF puede ser anterior al performance.now() de start():
+      // un dt negativo haría que damp extrapole (morph < 0 → stages[-1]).
+      const dt = Math.min(Math.max((now - this.lastFrame) / 1000, 0), 0.1);
       this.lastFrame = now;
       this.morph = damp(this.morph, this.targetMorph, 3.2, dt);
       this.pointer.x = damp(this.pointer.x, this.targetPointer.x, 2.5, dt);
