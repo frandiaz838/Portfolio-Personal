@@ -50,12 +50,16 @@ export function Header() {
         </div>
       </nav>
 
+      {/* El popover es un contenedor fixed "limpio" y el vidrio va adentro: .glass pone
+          position: relative, que en la capa superior se resuelve como absolute respecto
+          del documento. Con la página scrolleada, Safari dejaba el menú arriba de todo,
+          fuera de pantalla, y solo se veía el fondo desenfocado. */}
       <div
         id="mobile-menu"
         popover="auto"
-        className="glass inset-x-4 top-20 bottom-auto m-0 w-auto rounded-3xl p-3 text-bone backdrop:bg-ink/60 backdrop:backdrop-blur-sm md:hidden"
+        className="fixed inset-x-4 top-20 bottom-auto m-0 w-auto overflow-visible border-0 bg-transparent p-0 text-bone backdrop:bg-ink/75 backdrop:backdrop-blur-sm md:hidden"
       >
-        <ul className="flex flex-col">
+        <ul className="glass flex flex-col rounded-3xl p-3">
           {navItems.map((item, i) => (
             <li key={item.href}>
               <a
