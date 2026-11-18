@@ -39,37 +39,43 @@ export function Hero() {
             <p className="mt-3 text-pretty text-ash">{site.lookingFor}</p>
           </div>
 
+          {/* Dos grupos que no se parten: en mobile cada uno va en su fila
+              (acciones arriba, redes abajo); en desktop entran todos en una línea. */}
           <div className="flex flex-wrap gap-2">
-            <a href="#proyectos" className={buttonVariants({ size: "lg" })}>
-              Ver proyectos
-              <ArrowIcon className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-            </a>
-            <a
-              href={site.cvPath}
-              download
-              className={buttonVariants({ variant: "glass", size: "lg" })}
-            >
-              <DownloadIcon />
-              CV
-            </a>
-            <a
-              href={site.github.url}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub (se abre en otra pestaña)"
-              className={buttonVariants({ variant: "glass", size: "icon" })}
-            >
-              <GitHubIcon className="size-5!" />
-            </a>
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn (se abre en otra pestaña)"
-              className={buttonVariants({ variant: "glass", size: "icon" })}
-            >
-              <LinkedInIcon className="size-5!" />
-            </a>
+            <div className="flex gap-2">
+              <a href="#proyectos" className={buttonVariants({ size: "lg" })}>
+                Ver proyectos
+                <ArrowIcon className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+              </a>
+              <a
+                href={site.cvPath}
+                download
+                className={buttonVariants({ variant: "glass", size: "lg" })}
+              >
+                <DownloadIcon />
+                CV
+              </a>
+            </div>
+            <div className="flex gap-2">
+              <a
+                href={site.github.url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub (se abre en otra pestaña)"
+                className={buttonVariants({ variant: "glass", size: "icon" })}
+              >
+                <GitHubIcon className="size-5!" />
+              </a>
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn (se abre en otra pestaña)"
+                className={buttonVariants({ variant: "glass", size: "icon" })}
+              >
+                <LinkedInIcon className="size-5!" />
+              </a>
+            </div>
           </div>
         </div>
       </Container>
