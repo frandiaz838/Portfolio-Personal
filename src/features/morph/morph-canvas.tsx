@@ -16,13 +16,17 @@ const DESKTOP_STAGES: StageParams[] = [
   { x: 0.45, y: -0.05, scale: 0.8, opacity: 0.9 },
 ];
 
-/** En mobile el objeto queda centrado arriba y más tenue: el texto tiene prioridad. */
+/**
+ * En mobile no hay espacio libre para el objeto: en vez de flotar detrás del texto,
+ * queda anclado al borde derecho, grande y cortado por la pantalla, siempre en el
+ * mismo lugar. Se lee como fondo intencional y entre secciones solo cambia la forma.
+ */
 const MOBILE_STAGES: StageParams[] = [
-  { x: 0, y: 0.55, scale: 0.5, opacity: 0.85 },
-  { x: 0, y: 0.1, scale: 0.8, opacity: 0.35 },
-  { x: 0, y: 0.1, scale: 0.8, opacity: 0.25 },
-  { x: 0, y: 0.1, scale: 0.75, opacity: 0.25 },
-  { x: 0, y: 0.15, scale: 0.85, opacity: 0.45 },
+  { x: 0.62, y: 0.36, scale: 1.15, opacity: 0.75 },
+  { x: 0.62, y: 0.36, scale: 1.15, opacity: 0.35 },
+  { x: 0.62, y: 0.36, scale: 1.15, opacity: 0.3 },
+  { x: 0.62, y: 0.36, scale: 1.15, opacity: 0.3 },
+  { x: 0.62, y: 0.36, scale: 1.15, opacity: 0.45 },
 ];
 
 function idle(cb: () => void) {
