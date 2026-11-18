@@ -20,10 +20,10 @@ export async function FeaturedProjects() {
 export function FeaturedProjectsSkeleton() {
   return (
     <div className={GRID}>
-      <Skeleton className="h-[640px] rounded-3xl md:col-span-2 lg:col-span-4 lg:row-span-2" />
-      <Skeleton className="h-[520px] rounded-3xl lg:col-span-2 lg:row-span-2 lg:h-auto" />
-      <Skeleton className="h-[420px] rounded-3xl lg:col-span-3" />
-      <Skeleton className="h-[420px] rounded-3xl md:col-span-2 lg:col-span-3" />
+      <Skeleton className="h-[560px] rounded-3xl md:col-span-2 lg:col-span-4 lg:h-[545px]" />
+      <Skeleton className="h-[460px] rounded-3xl md:col-span-2 lg:col-span-2 lg:h-[545px]" />
+      <Skeleton className="h-[480px] rounded-3xl lg:col-span-3 lg:h-[460px]" />
+      <Skeleton className="h-[480px] rounded-3xl lg:col-span-3 lg:h-[460px]" />
     </div>
   );
 }

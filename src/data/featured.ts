@@ -13,12 +13,12 @@
 export type ProjectKind = "personal" | "colaborativo" | "universitario";
 
 /**
- * Tamaño en el bento de la home:
- *  - "feature": la card grande (con visual), ideal para el proyecto principal
- *  - "tall": alta y angosta
- *  - "wide": mitad de ancho, sin visual
+ * Ancho en la grilla de la home (cards solo de texto; las imágenes van en el detalle):
+ *  - "feature": 2/3 del ancho, título más grande; para el proyecto principal
+ *  - "narrow": 1/3 del ancho, al lado de la feature
+ *  - "wide": mitad de ancho
  */
-export type ProjectLayout = "feature" | "tall" | "wide";
+export type ProjectLayout = "feature" | "narrow" | "wide";
 
 export type FeaturedProject = {
   slug: string;
@@ -107,7 +107,7 @@ export const featuredProjects: FeaturedProject[] = [
   },
   {
     slug: "vila-panaderia",
-    layout: "tall",
+    layout: "narrow",
     callout: "Lo usan todos los días el dueño del comercio y sus empleados.",
     title: "Vila Panadería",
     tagline: "Sistema de gestión vendido y en uso diario en una panadería real.",

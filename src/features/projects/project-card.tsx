@@ -5,8 +5,6 @@ import type { ProjectKind, ProjectLayout } from "@/data/featured";
 import { LanguageBar } from "@/features/github/language-bar";
 import { formatRelativeDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { ProjectGallery } from "./project-gallery";
-import { ProjectVisual } from "./project-visual";
 import type { Project } from "./queries";
 
 const KIND_LABEL: Record<ProjectKind, string> = {
@@ -15,11 +13,11 @@ const KIND_LABEL: Record<ProjectKind, string> = {
   universitario: "Universitario · equipo",
 };
 
-/** Posición en el bento. md: 2 columnas; lg: 6 columnas con tamaños variados. */
+/** Ancho en la grilla. md: 2 columnas; lg: 6 columnas (4+2 arriba, 3+3 abajo). */
 const LAYOUT: Record<ProjectLayout, string> = {
-  feature: "md:col-span-2 lg:col-span-4 lg:row-span-2",
-  tall: "lg:col-span-2 lg:row-span-2",
-  wide: "lg:col-span-3 md:last:col-span-2 lg:last:col-span-3",
+  feature: "md:col-span-2 lg:col-span-4",
+  narrow: "md:col-span-2 lg:col-span-2",
+  wide: "lg:col-span-3",
 };
 
 const MAX_CHIPS = 6;
@@ -43,8 +41,6 @@ export function ProjectCard({ project }: { project: Project }) {
         </span>
       </header>
 
-      {layout === "feature" && <ProjectVisual project={project} className="aspect-[16/9]" />}
-
       <div>
         <h3
           id={`p-${project.slug}`}
@@ -57,19 +53,6 @@ export function ProjectCard({ project }: { project: Project }) {
         </h3>
         <p className="mt-3 max-w-prose text-pretty text-bone/85">{project.tagline}</p>
       </div>
-
-      {/* Card ancha con logo: el panel crece para emparejar el alto con su vecina */}
-      {layout === "wide" && !project.image && project.logo && (
-        <ProjectVisual project={project} className="min-h-40 flex-1" />
-      )}
-
-      {project.gallery && project.gallery.length > 0 && (
-        <ProjectGallery title={project.title} shots={project.gallery} />
-      )}
-
-      {layout === "tall" && (
-        <ProjectVisual project={project} className="min-h-40 flex-1 max-lg:hidden" />
-      )}
 
       {project.callout && (
         <blockquote className="border-l-2 border-ember pl-4 text-lg leading-snug text-pretty text-bone">
