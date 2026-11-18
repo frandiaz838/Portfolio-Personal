@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { MenuIcon } from "@/components/ui/icons";
 import { navItems } from "@/data/navigation";
 import { site } from "@/data/site";
@@ -12,43 +13,47 @@ import { cn } from "@/lib/utils";
  */
 export function Header() {
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
-      <nav
-        aria-label="Principal"
-        className="glass mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full pr-2 pl-5"
-      >
-        <Link href="/" className="flex items-center gap-2.5 font-mono text-sm">
-          <span className="text-bone">{site.name}</span>
-          <span className="hidden text-ash sm:inline">/ full stack</span>
-        </Link>
+    <header className="fixed inset-x-0 top-0 z-50 pt-4">
+      {/* Mismo Container que el contenido: los bordes de la píldora se alinean con los
+          del hero y las secciones en cualquier ancho. */}
+      <Container>
+        <nav
+          aria-label="Principal"
+          className="glass flex h-14 items-center justify-between rounded-full pr-2 pl-5"
+        >
+          <Link href="/" className="flex items-center gap-2.5 font-mono text-sm">
+            <span className="text-bone">{site.name}</span>
+            <span className="hidden text-ash sm:inline">/ full stack</span>
+          </Link>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {navItems.map((item) => (
-            <li key={item.href}>
-              <a href={item.href} className={buttonVariants({ variant: "ghost", size: "sm" })}>
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+          <ul className="hidden items-center gap-1 md:flex">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} className={buttonVariants({ variant: "ghost", size: "sm" })}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <div className="flex items-center gap-1">
-          <a
-            href="#contacto"
-            className={cn(buttonVariants({ size: "sm" }), "hidden sm:inline-flex")}
-          >
-            Hablemos
-          </a>
-          <button
-            type="button"
-            popoverTarget="mobile-menu"
-            aria-label="Abrir menú"
-            className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "md:hidden")}
-          >
-            <MenuIcon className="size-5!" />
-          </button>
-        </div>
-      </nav>
+          <div className="flex items-center gap-1">
+            <a
+              href="#contacto"
+              className={cn(buttonVariants({ size: "sm" }), "hidden sm:inline-flex")}
+            >
+              Hablemos
+            </a>
+            <button
+              type="button"
+              popoverTarget="mobile-menu"
+              aria-label="Abrir menú"
+              className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "md:hidden")}
+            >
+              <MenuIcon className="size-5!" />
+            </button>
+          </div>
+        </nav>
+      </Container>
 
       {/* El popover es un contenedor fixed "limpio" y el vidrio va adentro: .glass pone
           position: relative, que en la capa superior se resuelve como absolute respecto
@@ -57,7 +62,7 @@ export function Header() {
       <div
         id="mobile-menu"
         popover="auto"
-        className="fixed inset-x-4 top-20 bottom-auto m-0 w-auto overflow-visible border-0 bg-transparent p-0 text-bone backdrop:bg-ink/75 backdrop:backdrop-blur-sm md:hidden"
+        className="fixed inset-x-4 top-20 bottom-auto m-0 w-auto overflow-visible border-0 bg-transparent p-0 text-bone backdrop:bg-ink/75 backdrop:backdrop-blur-sm sm:inset-x-6 md:hidden"
       >
         <ul className="glass flex flex-col rounded-3xl p-3">
           {navItems.map((item, i) => (
