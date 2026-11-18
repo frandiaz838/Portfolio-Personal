@@ -17,14 +17,8 @@ export function Header() {
         aria-label="Principal"
         className="glass mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full pr-2 pl-5"
       >
-        <Link href="/" className="group flex items-center gap-2.5 font-mono text-sm">
-          <span
-            aria-hidden
-            className="grid size-7 place-items-center rounded-full bg-ember font-condensed text-sm text-ink transition-transform duration-500 ease-out-expo group-hover:rotate-[-12deg]"
-          >
-            FD
-          </span>
-          <span className="text-bone">{site.shortName}</span>
+        <Link href="/" className="flex items-center gap-2.5 font-mono text-sm">
+          <span className="text-bone">{site.name}</span>
           <span className="hidden text-ash sm:inline">/ full stack</span>
         </Link>
 

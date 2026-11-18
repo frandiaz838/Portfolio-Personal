@@ -5,7 +5,6 @@
  */
 export const site = {
   name: "Francisco Díaz",
-  shortName: "Francis",
   role: "Estudiante de Ingeniería Informática · Full Stack Jr.",
   location: "Córdoba, Argentina",
   email: "frandiaz838@gmail.com",
