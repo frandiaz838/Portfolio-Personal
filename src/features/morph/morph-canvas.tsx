@@ -96,8 +96,9 @@ export function MorphCanvas() {
         if (disposed) return;
         const cores = navigator.hardwareConcurrency ?? 4;
         renderer = new MorphRenderer(canvas, {
-          count: isMobile ? 5000 : cores <= 4 ? 9000 : 14000,
-          maxDpr: 1.5,
+          count: isMobile ? 5000 : cores <= 4 ? 8000 : 11000,
+          // Puntos chicos: por encima de 1.25 no se nota la nitidez extra y se paga en GPU
+          maxDpr: 1.25,
           animate: !reducedMotion,
           stages: isMobile ? MOBILE_STAGES : DESKTOP_STAGES,
         });
